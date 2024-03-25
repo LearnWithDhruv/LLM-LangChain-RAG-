@@ -1,0 +1,1846 @@
+2024-03-23 23:23:28 [INFO] Question: What are the top three airlines with the highest number of positive reviews?
+2024-03-23 23:23:28 [INFO] Running PandasAI with openai LLM...
+2024-03-23 23:23:28 [INFO] Prompt ID: ed60d312-a50e-47e6-a9f7-7699336f9099
+2024-03-23 23:23:28 [INFO] Executing Pipeline: GenerateChatPipeline
+2024-03-23 23:23:28 [INFO] Executing Step 0: ValidatePipelineInput
+2024-03-23 23:23:28 [INFO] Executing Step 1: CacheLookup
+2024-03-23 23:23:28 [INFO] Executing Step 2: PromptGeneration
+2024-03-23 23:23:28 [INFO] Using prompt: dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2024-03-23 23:23:28 [INFO] Executing Step 3: CodeGenerator
+2024-03-23 23:23:31 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-03-23 23:23:31 [INFO] Prompt used:
+            dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+            
+2024-03-23 23:23:31 [INFO] Code generated:
+            ```
+            # TODO: import the required dependencies
+import pandas as pd
+
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= 4)
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].astype(int) >= 4]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+            ```
+            
+2024-03-23 23:23:31 [INFO] Executing Step 4: CachePopulation
+2024-03-23 23:23:31 [INFO] Executing Step 5: CodeExecution
+2024-03-23 23:23:31 [INFO] 
+Code running:
+```
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].astype(int) >= 4]
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+result = {'type': 'string', 'value': f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"}
+        ```
+2024-03-23 23:23:31 [ERROR] Failed with error: Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+2024-03-23 23:23:31 [WARNING] Failed to execute code retrying with a correction framework [retry number: 1]
+2024-03-23 23:23:31 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-03-23 23:23:31 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-03-23 23:23:31 [INFO] Using prompt: dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+The user asked the following question:
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+You generated this python code:
+# TODO: import the required dependencies
+import pandas as pd
+
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= 4)
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].astype(int) >= 4]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+
+Fix the python code above and return the new python code:
+2024-03-23 23:23:31 [INFO] Executing Step 1: CodeGenerator
+2024-03-23 23:23:35 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-03-23 23:23:35 [INFO] Prompt used:
+            dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+The user asked the following question:
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+You generated this python code:
+# TODO: import the required dependencies
+import pandas as pd
+
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= 4)
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].astype(int) >= 4]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+
+Fix the python code above and return the new python code:
+            
+2024-03-23 23:23:35 [INFO] Code generated:
+            ```
+            # Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").astype(int) >= 4]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+            ```
+            
+2024-03-23 23:23:35 [INFO] 
+Code running:
+```
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", '').astype(int) >= 4]
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+result = {'type': 'string', 'value': f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"}
+        ```
+2024-03-23 23:23:35 [ERROR] Failed with error: Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+2024-03-23 23:23:35 [WARNING] Failed to execute code retrying with a correction framework [retry number: 2]
+2024-03-23 23:23:35 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-03-23 23:23:35 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-03-23 23:23:35 [INFO] Using prompt: dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+The user asked the following question:
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+You generated this python code:
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").astype(int) >= 4]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+
+Fix the python code above and return the new python code:
+2024-03-23 23:23:35 [INFO] Executing Step 1: CodeGenerator
+2024-03-23 23:23:37 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-03-23 23:23:37 [INFO] Prompt used:
+            dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+The user asked the following question:
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+You generated this python code:
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").astype(int) >= 4]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+
+Fix the python code above and return the new python code:
+            
+2024-03-23 23:23:37 [INFO] Code generated:
+            ```
+            # Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").str.isdigit() & (dfs[0]['Overall_Rating'].astype(int) >= 4)]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+            ```
+            
+2024-03-23 23:23:37 [INFO] 
+Code running:
+```
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", '').str.isdigit() & (dfs[0]['Overall_Rating'].astype(int) >= 4)]
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+result = {'type': 'string', 'value': f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"}
+        ```
+2024-03-23 23:23:37 [ERROR] Failed with error: Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+2024-03-23 23:23:37 [WARNING] Failed to execute code retrying with a correction framework [retry number: 3]
+2024-03-23 23:23:37 [INFO] Executing Pipeline: ErrorCorrectionPipeline
+2024-03-23 23:23:37 [INFO] Executing Step 0: ErrorPromptGeneration
+2024-03-23 23:23:37 [INFO] Using prompt: dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+The user asked the following question:
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+You generated this python code:
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").str.isdigit() & (dfs[0]['Overall_Rating'].astype(int) >= 4)]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+
+Fix the python code above and return the new python code:
+2024-03-23 23:23:37 [INFO] Executing Step 1: CodeGenerator
+2024-03-23 23:23:37 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2024-03-23 23:23:37 [INFO] Retrying request to /chat/completions in 20.000000 seconds
+2024-03-23 23:24:02 [INFO] HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-03-23 23:24:02 [INFO] Prompt used:
+            dfs[0]:
+  name: null
+  description: null
+  type: pd.DataFrame
+  rows: 23171
+  columns: 20
+  schema:
+    fields:
+    - name: 'Unnamed: 0'
+      type: int64
+      samples:
+      - 5856
+      - 15279
+      - 8831
+    - name: Airline Name
+      type: object
+      samples:
+      - JC International Airlines
+      - Air Berlin
+      - Air Algerie
+    - name: Overall_Rating
+      type: object
+      samples:
+      - '4'
+      - '2'
+      - '9'
+    - name: Review_Title
+      type: object
+      samples:
+      - '"a very traumatic experience"'
+      - '"Very pleased with the experience"'
+      - '"cautious about flying them in the future"'
+    - name: Review Date
+      type: object
+      samples:
+      - 1st July 2016
+      - 30th October 2021
+      - 15th January 2014
+    - name: Verified
+      type: bool
+      samples:
+      - false
+      - true
+      - true
+    - name: Review
+      type: object
+      samples:
+      - '  Chandigarh to Bhopal via Delhi. My mother was on wheelchair. They took
+        her for boarding and as i along with other passengers were about to board
+        they suddenly announced the cancellation of flight. I did not know the whereabouts
+        of my mum and when i asked they repeatedly told me that they were going to
+        bring her back. She did not arrive even after a wait of an hour and a half.
+        Finally my wife went back to the check in counter after going reverse through
+        the security and completing all the formalities and found her there. She told
+        us that she was sitting in the wheelchair for about half an hour near the
+        plane in rain as it started raining suddenly. There was a big confusion among
+        the staff about the cancellation of the flight. The Delhi flight was announced
+        again but they told us that we cannot board the flight as we would not be
+        able to catch our flight for Bhopal due to delay in the Chandigarh flight.
+        We then awaited for our luggage to come back for another three hours only
+        to find that half of our luggage was not removed from the flight and it had
+        been taken to Delhi. No one was telling us anything during all this as their
+        whole staff was itself confused and was in a panic mode. When i enquired about
+        this from their supervisor he was making excuse like a school child that due
+        to all this mess up and heavy rains they were not able to unload all the luggage
+        of the passengers. I told him that if they were so untrained that they were
+        not able to handle such a simple situation what will happen if they have to
+        deal with a real emergency.'
+      - Flew from Toliara to Tana. What to say about Air Madagascar - the airline
+        usually runs on Malagasy time and this was no exception. Flight was due to
+        leave at 18.25. By 19.00 no plane had turned up and there was absolutely nobody
+        in the terminal with any kind of information. There are screens in the terminal
+        but as there is only 1 flight per day they are of little use. Fortunately
+        TLE has a fairly modern terminal (for Madagascar) and a number of places to
+        buy drinks. 8pm came and went then 9pm still no plane and it's getting dark.
+        Eventually at about half past 9 three guys arrived in a jeep proceeded to
+        drive down the runway setting up a series of cones with lights on top. The
+        first we knew anything was happening was when a plane appeared on the runway
+        taxied up to the terminal and unloaded some passengers. We were then allowed
+        out onto the tarmac and up the steps to the plane. Plane was a fairly modern
+        737 seats were reasonably comfortable staff were very friendly and as the
+        plane was only half full the flight was one of the most pleasant I have had
+        on AirMad. Flying with AirMad is always an experience.
+      - '  The flight was fine and punctual and the service was good. It is incredible
+        that an international airline does not offer vegetarian food. I tried to reserve
+        it but the process was too complicated, and there were no options on the flight!'
+    - name: Aircraft
+      type: object
+      samples:
+      - .nan
+      - Boeing 737 - 800
+      - Boeing 737 800
+    - name: Type Of Traveller
+      type: object
+      samples:
+      - Business
+      - .nan
+      - Couple Leisure
+    - name: Seat Type
+      type: object
+      samples:
+      - .nan
+      - Premium Economy
+      - First Class
+    - name: Route
+      type: object
+      samples:
+      - Kansai to Fukuoka
+      - .nan
+      - Tokyo to Montreal
+    - name: Date Flown
+      type: object
+      samples:
+      - December 2022
+      - January 2019
+      - .nan
+    - name: Seat Comfort
+      type: float64
+      samples:
+      - 0.0
+      - .nan
+      - 4.0
+    - name: Cabin Staff Service
+      type: float64
+      samples:
+      - .nan
+      - 0.0
+      - 3.0
+    - name: Food & Beverages
+      type: float64
+      samples:
+      - 2.0
+      - .nan
+      - 1.0
+    - name: Ground Service
+      type: float64
+      samples:
+      - .nan
+      - 2.0
+      - 3.0
+    - name: Inflight Entertainment
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 0.0
+    - name: Wifi & Connectivity
+      type: float64
+      samples:
+      - 4.0
+      - .nan
+      - 3.0
+    - name: Value For Money
+      type: float64
+      samples:
+      - 3.0
+      - .nan
+      - 2.0
+    - name: Recommended
+      type: object
+      samples:
+      - 'yes'
+      - 'yes'
+      - 'no'
+
+
+The user asked the following question:
+### QUERY
+ What are the top three airlines with the highest number of positive reviews?
+
+You generated this python code:
+# Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").str.isdigit() & (dfs[0]['Overall_Rating'].astype(int) >= 4)]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+
+It fails with the following error:
+Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+
+Fix the python code above and return the new python code:
+            
+2024-03-23 23:24:02 [INFO] Code generated:
+            ```
+            # Filter out rows with positive reviews (assuming positive reviews are those with Overall_Rating >= '4')
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", "").str.isdigit() & (dfs[0]['Overall_Rating'].str.replace("'", "").astype(int) >= 4)]
+
+# Get the count of positive reviews for each airline
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+
+result = {
+    "type": "string",
+    "value": f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"
+}
+            ```
+            
+2024-03-23 23:24:02 [INFO] 
+Code running:
+```
+positive_reviews = dfs[0][dfs[0]['Overall_Rating'].str.replace("'", '').str.isdigit() & (dfs[0]['Overall_Rating'].str.replace("'", '').astype(int) >= 4)]
+top_airlines = positive_reviews['Airline Name'].value_counts().nlargest(3)
+result = {'type': 'string', 'value': f"The top three airlines with the highest number of positive reviews are: {', '.join(top_airlines.index)}"}
+        ```
+2024-03-23 23:24:02 [ERROR] Failed with error: Traceback (most recent call last):
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\pipelines\chat\code_execution.py", line 64, in execute
+    result = code_manager.execute_code(code_to_run, code_context)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandasai\helpers\code_manager.py", line 208, in execute_code
+    exec(code_to_run, environment)
+  File "<string>", line 1, in <module>
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\generic.py", line 6637, in astype
+    new_data = self._mgr.astype(dtype=dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 431, in astype
+    return self.apply(
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\managers.py", line 364, in apply
+    applied = getattr(b, f)(**kwargs)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\internals\blocks.py", line 758, in astype
+    new_values = astype_array_safe(values, dtype, copy=copy, errors=errors)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 237, in astype_array_safe
+    new_values = astype_array(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 182, in astype_array
+    values = _astype_nansafe(values, dtype, copy=copy)
+  File "D:\LLM Using Langchain\env\lib\site-packages\pandas\core\dtypes\astype.py", line 133, in _astype_nansafe
+    return arr.astype(dtype, copy=True)
+ValueError: invalid literal for int() with base 10: 'n'
+
+2024-03-23 23:24:02 [ERROR] Pipeline failed on step 5: invalid literal for int() with base 10: 'n'
